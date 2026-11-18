@@ -1,45 +1,60 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Assignment 2</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+  <meta charset="UTF-8">
+  <title>Store Name</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
-    <header>
-    <a href="#" data-view="home" class="logo">Logo</a>
- 
+
+  <header>
+    <a href="#" data-view="homeview" class="logo">Logo</a>
+
     <nav>
-      <a href="#" data-view="home">Home</a>
-      <a href="#" data-view="browse">Browse</a>
-      <a href="#" data-view="category">Category</a>
-      <a href="#" data-view="about">About</a>
+      <a href="#" data-view="homeview">Home</a>
+      <a href="#" data-view="browseview">Browse</a>
+      <a href="#" data-view="categoryview">Category</a>
+      <a href="#" data-view="aboutdialog">About</a>
     </nav>
- 
-    <a href="#" data-view="cart" class="cart-link">
+
+    <a href="#" data-view="cartview" class="cart-link">
       Cart <span id="cart-count">0</span>
     </a>
   </header>
- 
+
   <main>
-    <section id="home"></section>
-    <section id="category" class="hidden"></section>
-    <section id="browse" class="hidden"></section>
-    <section id="product" class="hidden"></section>
-    <section id="cart" class="hidden"></section>
+    <!-- Home View: hero image + featured products -->
+    <section id="homeview">
+    </section>
+
+    <!-- Category View: hero + category thumbnails -->
+    <section id="categoryview" class="hidden">
+    </section>
+
+    <!-- Browse View: filters + product results -->
+    <section id="browseview" class="hidden">
+    </section>
+
+    <!-- Single Product View -->
+    <section id="productview" class="hidden">
+    </section>
+
+    <!-- Shopping Cart View -->
+    <section id="cartview" class="hidden">
+    </section>
   </main>
- 
-  <dialog id="about"></dialog>
- 
+
+  <!-- About Us Dialog -->
+  <dialog id="aboutdialog">
+  </dialog>
+
   <footer>
-    <a href="https://github.com/krand021/COMP3612-assign2">GitHub Repo</a>
-    <p>COMP 3612 Assignment 2 Mount Royal University</p>
-    <p>Jaden Cowie | Kieran Randell</p>
+    <a href="https://github.com/YOUR-USERNAME/YOUR-REPO" target="_blank" rel="noopener">GitHub Repo</a>
+    <p>COMP 3612 Assignment 2  Mount Royal University</p>
+    <p>Jaden Cowie | Kieran Randall</p>
 
   </footer>
-</body>
 
+  <script type="module" src="js/main.js"></script>
+</body>
 </html>
