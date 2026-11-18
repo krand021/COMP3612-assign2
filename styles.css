@@ -1,12 +1,18 @@
-header nav{
-    list-style-type: none; 
-  text-decoration: none;
+@import "tailwindcss";
 
-    display: flex;       
+/* Theme colours — change --color-accent to restyle every accent at once */
+@theme {
+  --color-accent: #a3e635;
 }
 
-header nav a{
-    display: block;    
-    text-decoration: none; 
-    padding: 14px 20px;
+/* Shared link style used in the header and footer */
+@layer components {
+  .nav-link {
+    @apply text-neutral-400 transition-colors hover:text-white;
+  }
+
+  /* Add this class with JS to highlight the current view's link */
+  .nav-link.active {
+    @apply text-white;
+  }
 }

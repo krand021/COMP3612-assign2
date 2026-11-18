@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --color-accent: #a3e635;
+}
+
+@layer components {
+  .nav-link {
+    @apply text-neutral-400 transition-colors hover:text-white;
+  }
+  .nav-link.active {
+    @apply text-white;
+  }
+}

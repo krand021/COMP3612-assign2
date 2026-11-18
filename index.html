@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg-black">
 <head>
   <meta charset="UTF-8">
   <title>Store Name</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="flex min-h-screen flex-col bg-black font-sans text-neutral-200 antialiased">
 
-  <header>
-    <a href="#" data-view="homeview" class="logo">Logo</a>
+  <header class="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-neutral-800 bg-black/80 px-6 backdrop-blur">
+    <a href="#" data-view="homeview" class="logo text-xl font-bold tracking-tight text-white">Logo</a>
 
-    <nav>
-      <a href="#" data-view="homeview">Home</a>
-      <a href="#" data-view="browseview">Browse</a>
-      <a href="#" data-view="categoryview">Category</a>
-      <a href="#" data-view="aboutdialog">About</a>
+    <nav class="flex gap-8 text-lg font-medium">
+      <a href="#" data-view="homeview" class="nav-link">Home</a>
+      <a href="#" data-view="browseview" class="nav-link">Browse</a>
+      <a href="#" data-view="categoryview" class="nav-link">Category</a>
+      <a href="#" data-view="aboutdialog" class="nav-link">About</a>
     </nav>
 
-    <a href="#" data-view="cartview" class="cart-link">
-      Cart <span id="cart-count">0</span>
+    <a href="#" data-view="cartview" class="cart-link nav-link flex items-center gap-2 text-lg font-medium">
+      Cart <span id="cart-count" class="flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1.5 text-xs font-bold text-black">0</span>
     </a>
   </header>
 
-  <main>
+  <main class="mx-auto w-full max-w-7xl flex-1 px-6 py-10">
     <!-- Home View: hero image + featured products -->
     <section id="homeview">
     </section>
@@ -45,11 +45,11 @@
   </main>
 
   <!-- About Us Dialog -->
-  <dialog id="aboutdialog">
+  <dialog id="aboutdialog" class="m-auto w-full max-w-lg rounded-xl border border-neutral-800 bg-neutral-950 p-8 text-neutral-200 backdrop:bg-black/70 backdrop:backdrop-blur-sm">
   </dialog>
 
-  <footer>
-    <a href="https://github.com/YOUR-USERNAME/YOUR-REPO" target="_blank" rel="noopener">GitHub Repo</a>
+  <footer class="flex flex-col items-center gap-1 border-t border-neutral-800 px-6 py-6 text-sm text-neutral-500">
+    <a href="https://github.com/YOUR-USERNAME/YOUR-REPO" target="_blank" rel="noopener" class="nav-link font-medium">GitHub Repo</a>
     <p>COMP 3612 Assignment 2  Mount Royal University</p>
     <p>Jaden Cowie | Kieran Randall</p>
 
