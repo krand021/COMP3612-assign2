@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" class="bg-black">
+
 <head>
   <meta charset="UTF-8">
   <title>Store Name</title>
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Doto:wght@700;900&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
 </head>
+
 <body class="flex min-h-screen flex-col bg-black font-sans text-neutral-200 antialiased">
 
-  <header class="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-neutral-800 bg-black/80 px-6 backdrop-blur">
+  <header
+    class="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-neutral-800 bg-black/80 px-6 backdrop-blur">
     <a href="#" data-view="homeview" class="logo text-xl font-bold tracking-tight text-white">Logo</a>
 
     <nav class="flex gap-8 text-lg font-medium">
@@ -18,52 +27,110 @@
     </nav>
 
     <a href="#" data-view="cartview" class="cart-link nav-link flex items-center gap-2 text-lg font-medium">
-      Cart <span id="cart-count" class="flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1.5 text-xs font-bold text-black">0</span>
+      Cart <span id="cart-count"
+        class="flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1.5 text-xs font-bold text-black">0</span>
     </a>
   </header>
 
-  <main class="mx-auto w-full max-w-7xl flex-1 px-6 py-10">
+
+
+  <main class="flex-1">
+
     <!-- Home View: hero image + featured products -->
+    <!-- took insparation from the nothing website but with a dark theme and green accent, 
+     https://nothing.tech/ -->
     <section id="homeview">
-      <h1>Home</h1>
+
+      <!-- hero -->
+      <div
+        class="relative isolate flex h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden text-center">
+        <img src="images/andrew-kliatskyi-7og8GybWcZw-unsplash.jpg" alt="hero image black"
+          class="absolute inset-0 -z-10 h-full w-full object-cover opacity-100">
+        <p class="label mb-6">( New products )</p>
+        <h1 class="font-dot text-6xl leading-none text-white sm:text-8xl lg:text-9xl">
+          Less noise.<br>More stuff.
+        </h1>
+        <p class="mt-8 max-w-md text-neutral-400">
+          A small store with everyday things. Simple products, all categories.
+        </p>
+        <a href="#" data-view="browseview" class="btn-accent mt-10">Shop all categories</a>
+      </div>
+
+      <!-- Featured products -->
+      <div class="mx-auto max-w-7xl px-6 py-20">
+        <div class="mb-10 flex items-end justify-between">
+          <h2 class="font-dot text-4xl text-white">Featured</h2>
+          <a href="#" data-view="browseview" class="label hover:text-white">View all &rarr;</a>
+        </div>
+
+        <!-- Cards are added here by JS from #productCardTemplate -->
+        <div id="featuredProducts" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"></div>
+      </div>
+      <ul class="mx-auto flex max-w-7xl justify-center divide-x divide-neutral-800 border-y border-neutral-800 py-8">
+        <li class="label px-12 text-neutral-300">Free shipping</li>
+        <li class="label px-12 text-neutral-300">Deals for Randy</li>
+        <li class="label px-12 text-neutral-300">No returns ever</li>
+      </ul>
     </section>
 
     <!-- Category View: hero + category thumbnails -->
-    <section id="categoryview" class="hidden">
+    <section id="categoryview" class="hidden mx-auto max-w-7xl px-6 py-10">
       <h1>Cat</h1>
-
     </section>
 
     <!-- Browse View: filters + product results -->
-    <section id="browseview" class="hidden">
+    <section id="browseview" class="hidden mx-auto max-w-7xl px-6 py-10">
       <h1>browser</h1>
-
     </section>
 
     <!-- Single Product View -->
-    <section id="productview" class="hidden">
+    <section id="productview" class="hidden mx-auto max-w-7xl px-6 py-10">
       <h1>product</h1>
     </section>
 
     <!-- Shopping Cart View -->
-    <section id="cartview" class="hidden">
+    <section id="cartview" class="hidden mx-auto max-w-7xl px-6 py-10">
       <h1>Cart</h1>
     </section>
   </main>
 
   <!-- About Us Dialog -->
-  <dialog id="aboutdialog" class="m-auto w-full max-w-lg rounded-xl border border-neutral-800 bg-neutral-950 p-8 text-neutral-200 backdrop:bg-black/70 backdrop:backdrop-blur-sm">
+  <dialog id="aboutdialog"
+    class="m-auto w-full max-w-lg rounded-xl border border-neutral-800 bg-neutral-950 p-8 text-neutral-200 backdrop:bg-black/70 backdrop:backdrop-blur-sm">
     <h1>about us</h1>
     <form method="dialog"><button>Close</button></form>
   </dialog>
 
   <footer class="flex flex-col items-center gap-1 border-t border-neutral-800 px-6 py-6 text-sm text-neutral-500">
-    <a href="https://github.com/YOUR-USERNAME/YOUR-REPO" target="_blank" rel="noopener" class="nav-link font-medium">GitHub Repo</a>
-    <p>COMP 3612 Assignment 2  Mount Royal University</p>
+    <a href="https://github.com/YOUR-USERNAME/YOUR-REPO" target="_blank" rel="noopener"
+      class="nav-link font-medium">GitHub Repo</a>
+    <p>COMP 3612 Assignment 2 Mount Royal University</p>
     <p>Jaden Cowie | Kieran Randall</p>
 
   </footer>
 
+
+  <!-- templates!!! not displayed automaticly, but through js -->
+
+  <!-- product card used for home featured products-->
+  <template id="productCardTemplate">
+    <a href="#" class="product-card group block">
+      <div class="aspect-square overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950">
+        <img src="" alt=""
+          class="h-full w-full object-contain p-6 transition-transform duration-300 group-hover:scale-105">
+      </div>
+      <div class="mt-4 flex items-start justify-between gap-4">
+        <div>
+          <p class="card-category label"></p>
+          <h3 class="card-title mt-1 font-medium text-white"></h3>
+        </div>
+        <p class="card-price font-mono text-accent"></p>
+      </div>
+    </a>
+  </template>
+
+
   <script type="module" src="script.js"></script>
 </body>
+
 </html>

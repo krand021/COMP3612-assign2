@@ -1,14 +1,31 @@
 @import "tailwindcss";
 
+/* theme. the main colours and fonts */
 @theme {
   --color-accent: #a3e635;
+  --font-dot: "Doto", monospace;        /* dot-matrix headings (Nothing-style) */
+  --font-mono: "Space Mono", monospace; /* small labels and prices */
 }
 
 @layer components {
+
+  /* for header/footer links */
   .nav-link {
     @apply text-neutral-400 transition-colors hover:text-white;
   }
+
+  /* Add this class with JS to highlight the current view's link */
   .nav-link.active {
     @apply text-white;
+  }
+
+  /* small uppercase mono text */
+  .label {
+    @apply font-mono text-xs tracking-widest text-neutral-500 uppercase;
+  }
+
+  /* main call-to-action button */
+  .btn-accent {
+    @apply inline-block rounded-full bg-accent px-8 py-3 font-mono text-sm font-bold tracking-wide text-black uppercase transition hover:bg-white;
   }
 }

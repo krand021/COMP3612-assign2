@@ -2,7 +2,6 @@
 .DS_Store
 info/
 
-# Dependencies (recreate with npm install)
 node_modules/
 
 # Logs
