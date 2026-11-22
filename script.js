@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     const body = document.querySelector("body");
     body.addEventListener("click", handleNavClick);
     showFeaturedProducts(data.products);
+    showCategories(data.products);
 });
 
 
@@ -76,5 +77,34 @@ function viewChanger(viewId) {
         } else {
             document.querySelector(`#${view}`).classList.toggle('hidden', true);
         }
+    }
+}
+
+function showCategories(products) {
+    const template = document.querySelector("#categoryCardTemplate");
+    const parent = document.querySelector("#categoryGrid");
+
+    const categories = new Set();
+
+    // find all categories
+    for (const product of products) {
+        categories.add(product.category);
+    }
+
+    // create card for each category
+    for (const category of categories) {
+
+        // find a product in this category for its thumbnail
+        const product = products.find(p => p.category === category);
+
+        const card = template.content.cloneNode(true);
+
+        const img = card.querySelector("img");
+        img.setAttribute("src", product.thumbnail);
+        img.setAttribute("alt", category);
+        card.querySelector(".category-name").textContent = category;
+        card.querySelector("a").dataset.category = category;
+
+        parent.appendChild(card);
     }
 }

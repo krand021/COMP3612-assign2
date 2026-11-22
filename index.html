@@ -73,10 +73,38 @@
       </ul>
     </section>
 
-    <!-- Category View: hero + category thumbnails -->
-    <section id="categoryview" class="hidden mx-auto max-w-7xl px-6 py-10">
-      <h1>Cat</h1>
-    </section>
+<!-- Category View: hero + category thumbnails -->
+<section id="categoryview" class="hidden">
+
+  <!-- hero -->
+  <div class="relative isolate flex h-[40vh] min-h-75 flex-col items-center justify-center overflow-hidden text-center">
+    <img src="images/andrew-kliatskyi-7og8GybWcZw-unsplash.jpg"
+      alt="Categories hero"
+      class="absolute inset-0 -z-10 h-full w-full object-cover opacity-50">
+    <p class="label mb-6">( Explore our collection )</p>
+    <h1 class="font-dot text-6xl text-white sm:text-8xl lg:text-9xl">
+      Categories.
+    </h1>
+    <p class="mt-6 text-neutral-400">
+      Find exactly what you're looking for.
+    </p>
+  </div>
+
+  <!-- catagories -->
+  <div class="mx-auto max-w-7xl px-6 py-16">
+    <div class="mb-10">
+      <p class="label mb-3">( Browse by category )</p>
+      <h2 class="font-dot text-4xl text-white">
+        Explore.
+      </h2>
+    </div>
+
+    <!-- dynmically added catagory cards -->
+    <div id="categoryGrid"
+      class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+    </div>
+  </div>
+</section>
 
     <!-- Browse View: filters + product results -->
     <section id="browseview" class="hidden mx-auto max-w-7xl px-6 py-10">
@@ -102,7 +130,7 @@
   </dialog>
 
   <footer class="flex flex-col items-center gap-1 border-t border-neutral-800 px-6 py-6 text-sm text-neutral-500">
-    <a href="https://github.com/YOUR-USERNAME/YOUR-REPO" target="_blank" rel="noopener"
+    <a href="https://github.com/krand021/COMP3612-assign2" target="_blank" rel="noopener"
       class="nav-link font-medium">GitHub Repo</a>
     <p>COMP 3612 Assignment 2 Mount Royal University</p>
     <p>Jaden Cowie | Kieran Randall</p>
@@ -128,6 +156,27 @@
       </div>
     </a>
   </template>
+
+<!-- Category card used for home category cards -->
+<template id="categoryCardTemplate">
+  <a href="#" data-view="browseview" class="category-card group block">
+
+    <!-- thumbnail -->
+    <div class="aspect-square overflow-hidden rounded-xl border border-neutral-800 bg-neutral-950 transition-colors duration-300 group-hover:border-accent">
+      <img src="" alt=""
+        class="h-full w-full object-contain p-10 transition-transform duration-300 group-hover:scale-105">
+    </div>
+
+    <!-- category -->
+    <div class="mt-6 flex items-center justify-between gap-4 px-1">
+      <h3 class="category-name text-xl font-medium text-white capitalize transition-colors group-hover:text-accent">
+      </h3>
+      <span class="text-xl text-neutral-500 transition-colors group-hover:text-accent">
+        &rarr;
+      </span>
+    </div>
+  </a>
+</template>
 
 
   <script type="module" src="script.js"></script>
