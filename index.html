@@ -63,7 +63,7 @@
           <a href="#" data-view="browseview" class="label hover:text-white">View all &rarr;</a>
         </div>
 
-        <!-- Cards are added here by JS from #productCardTemplate -->
+        <!-- cards are added here by JS from #productCardTemplate -->
         <div id="featuredProducts" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"></div>
       </div>
       <ul class="mx-auto flex max-w-7xl justify-center divide-x divide-neutral-800 border-y border-neutral-800 py-8">
@@ -83,10 +83,80 @@
       <h1>browser</h1>
     </section>
 
+
+
+
+
+
+
+
+
+
+    
     <!-- Single Product View -->
     <section id="productview" class="hidden mx-auto max-w-7xl px-6 py-10">
-      <h1>product</h1>
+
+      <!-- breadcrumb -->
+      <nav>
+        <ol class="breadcrumb">
+          <li>Home</li>
+          <li id="crumbCategory"></li>
+          <li id="crumbTitle"></li>
+        </ol>
+      </nav>
+
+      <!-- image info side by side -->
+      <div class="grid grid-cols-2 gap-12">
+
+        <div>
+          <img id="singleProdImage" src="" alt="">
+        </div>
+
+        <div>
+          <h1 id="productTitle"></h1>
+          <h2 id="productPrice"></h2>
+          <p id="sku"></p>
+          <p id="ratings"></p>
+          <div id="tags">
+
+            
+          </div>
+          <p id="stock"></p>
+          <p id="prodDesc"></p>
+
+          <div class="addToCart">
+            <label for="quantity">Quantity</label>
+            <input id="quantity" type="number" min="1" value="1">
+            <button id="addToCart">+ Add To Cart</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- tabs -->
+      <div class="tabs">
+        <button data-tab="specsPanel">Specifications</button>
+        <button data-tab="reviewsPanel">Reviews</button>
+      </div>
+
+      <!-- specifications -->
+      <div id="specs">
+        <p>Weight: <span id="specWeight"></span></p>
+        <p>Dimensions: <span id="specDimensions"></span></p>
+        <p>Warranty: <span id="specWarranty"></span></p>
+        <p>Shipping: <span id="specShipping"></span></p>
+        <p>Returns: <span id="specReturns"></span></p>
+      </div>
+
+      <!-- reviews panel (cards added by JS from #reviewTemplate) -->
+      <div id="reviews" class="hidden">
+        <ul id="reviewList"></ul>
+      </div>
+
     </section>
+
+
+
 
     <!-- Shopping Cart View -->
     <section id="cartview" class="hidden mx-auto max-w-7xl px-6 py-10">
@@ -127,6 +197,16 @@
         <p class="card-price font-mono text-accent"></p>
       </div>
     </a>
+  </template>
+
+  <!-- one review cloned for each review in product reviews -->
+  <template id="reviewTemplate">
+    <li class="review">
+      <p class="review-rating"></p>
+      <p class="review-comment"></p>
+      <p class="review-name"></p>
+      <p class="review-date"></p>
+    </li>
   </template>
 
 

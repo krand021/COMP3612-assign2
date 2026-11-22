@@ -12,30 +12,59 @@ document.addEventListener('DOMContentLoaded', () =>{
 });
 
 
-// event delegation! only one event listener
+
+// event delegation! one listener on body handles every click
 function handleNavClick(e) {
-    // find the link that was clicked 
     // Element.closest(): https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+    const clickedCard = e.target.closest(".product-card");
     const clickedLink = e.target.closest("[data-view]");
 
-    // Ignore clicks that weren't on a nav link
-    if (clickedLink === null) {
-        return;
+    if (clickedCard !== null) {
+        e.preventDefault();
+        ClickedCard(clickedCard);
+    } else if (clickedLink !== null) {
+        e.preventDefault();
+        ClickedLink(clickedLink);
     }
+}
 
-    // stop the "#" link from jumping to the top of the page
-    e.preventDefault();
+// product card clicked, show its single product view
+function ClickedCard(card) {
+    const cardID = Number(card.dataset.productId);
+    const productClicked = data.products.find(product => product.id === cardID);
+    //first populate the page
+    showProduct(productClicked);
+    //then swap to it
+    viewChanger("productview");
+}
 
-    const viewName = clickedLink.dataset.view;
+
+
+function showProduct(product){
+    document.querySelector("#crumbCategory").textContent = product.category;
+
+}
+
+
+
+
+
+
+
+
+// nav link clicked, show that view or the about popup
+function ClickedLink(link) {
+    const viewName = link.dataset.view;
 
     // about is a popup, not a view, so we gotta treat it differently
     if (viewName === "aboutdialog") {
-        const aboutDialog = document.querySelector("#aboutdialog");
-        aboutDialog.showModal();
+        document.querySelector("#aboutdialog").showModal();
     } else {
         viewChanger(viewName);
     }
 }
+
+
 
 
 function showFeaturedProducts(products) {
