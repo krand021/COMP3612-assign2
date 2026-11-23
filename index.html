@@ -37,8 +37,9 @@
   <main class="flex-1">
 
     <!-- Home View: hero image + featured products -->
-    <!-- took insparation from the nothing website but with a dark theme and green accent, 
-     https://nothing.tech/ -->
+    <!-- took insparation from the nothing website and razer but with a dark theme and green accent and dot font, 
+     https://nothing.tech/
+     https://www.razer.com/ -->
     <section id="homeview">
 
       <!-- hero -->
@@ -125,65 +126,79 @@
 
 
 
-
     <!-- Single Product View -->
     <section id="productview" class="hidden mx-auto max-w-7xl px-6 py-10">
 
       <!-- breadcrumb -->
-      <nav>
-        <ol class="breadcrumb">
+      <nav class="mb-10">
+        <ol class="breadcrumb flex gap-2 font-mono text-xs tracking-widest text-neutral-500 uppercase">
           <li>Home</li>
           <li id="crumbCategory"></li>
-          <li id="crumbTitle"></li>
+          <li id="crumbTitle" class="text-neutral-300"></li>
         </ol>
       </nav>
 
-      <!-- image info side by side -->
-      <div class="grid grid-cols-2 gap-12">
+      <!-- image + info side by side -->
+      <div class="grid grid-cols-2 gap-16">
 
-        <div>
-          <img id="singleProdImage" src="" alt="">
+        <!-- image -->
+        <div class="aspect-square overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950">
+          <img id="singleProdImage" src="" alt="" class="h-full w-full object-contain p-10">
         </div>
 
-        <div>
-          <h1 id="productTitle"></h1>
-          <h2 id="productPrice"></h2>
-          <p id="sku"></p>
-          <p id="ratings"></p>
-          <div id="tags">
+        <!-- info -->
+        <div class="flex flex-col">
+          <h1 id="productTitle" class="font-dot text-5xl leading-tight text-white"></h1>
+          <h2 id="productPrice" class="mt-4 font-mono text-3xl text-accent"></h2>
 
-
+          <div class="mt-6 flex items-center gap-6">
+            <p id="ratings" class="text-lg text-white"></p>
+            <p id="sku" class="label"></p>
           </div>
-          <p id="stock"></p>
-          <p id="prodDesc"></p>
 
-          <div class="addToCart">
-            <label for="quantity">Quantity</label>
-            <input id="quantity" type="number" min="1" value="1">
-            <button id="addToCart">+ Add To Cart</button>
+          <div id="tags" class="mt-6 flex flex-wrap gap-2"></div>
+
+          <p id="stock" class="label mt-6 text-accent"></p>
+          <p id="prodDesc" class="mt-4 leading-relaxed text-neutral-400"></p>
+
+          <!-- add to cart -->
+          <div class="addToCart mt-auto flex items-end gap-4 border-t border-neutral-800 pt-8">
+            <div class="flex flex-col gap-2">
+              <label for="quantity" class="label">Quantity</label>
+              <input id="quantity" type="number" min="1" value="1"
+                class="w-24 rounded-full border border-neutral-700 bg-black px-5 py-3 font-mono text-white focus:border-accent focus:outline-none">
+            </div>
+            <button id="addToCart" class="btn-accent">+ Add To Cart</button>
           </div>
         </div>
 
       </div>
 
       <!-- tabs -->
-      <div class="tabs">
-        <button data-tab="specsPanel">Specifications</button>
-        <button data-tab="reviewsPanel">Reviews</button>
+      <div class="tabs mt-20 flex gap-8 border-b border-neutral-800">
+        <button data-tab="specsPanel" class="tab-btn active">Specifications</button>
+        <button data-tab="reviewsPanel" class="tab-btn">Reviews</button>
       </div>
 
-      <!-- specifications -->
-      <div id="specsPanel">
-        <p>Weight: <span id="specWeight"></span></p>
-        <p>Dimensions: <span id="specDimensions"></span></p>
-        <p>Warranty: <span id="specWarranty"></span></p>
-        <p>Shipping: <span id="specShipping"></span></p>
-        <p>Returns: <span id="specReturns"></span></p>
+      <!-- specifications panel (one set per product, so no template) -->
+      <div id="specsPanel" class="py-8">
+        <dl class="grid max-w-2xl grid-cols-[10rem_1fr] gap-x-8 gap-y-4">
+          <dt class="label">Weight</dt>
+          <dd id="specWeight" class="text-neutral-200"></dd>
+          <dt class="label">Dimensions</dt>
+          <dd id="specDimensions" class="text-neutral-200"></dd>
+          <dt class="label">Warranty</dt>
+          <dd id="specWarranty" class="text-neutral-200"></dd>
+          <dt class="label">Shipping</dt>
+          <dd id="specShipping" class="text-neutral-200"></dd>
+          <dt class="label">Returns</dt>
+          <dd id="specReturns" class="text-neutral-200"></dd>
+        </dl>
       </div>
 
-      <!-- reviews panel cards added by js from #reviewtemplate -->
-      <div id="reviewsPanel" class="hidden">
-        <ul id="reviewList"></ul>
+      <!-- reviews panel (cards added by JS from #reviewTemplate) -->
+      <div id="reviewsPanel" class="hidden py-8">
+        <ul id="reviewList" class="max-h-96 divide-y divide-neutral-800 overflow-y-auto pr-4"></ul>
       </div>
 
     </section>
@@ -235,21 +250,23 @@
 
 
 
-
-  <!-- one review cloned for each review in product reviews -->
+  <!-- one review, cloned for each review in product reviews -->
   <template id="reviewTemplate">
-    <li class="review">
-      <p class="review-rating"></p>
-      <p class="review-comment"></p>
-      <p class="review-name"></p>
-      <p class="review-date"></p>
+    <li class="review py-6">
+      <div class="flex items-center justify-between">
+        <p class="review-rating text-white"></p>
+        <p class="review-date label"></p>
+      </div>
+      <p class="review-comment mt-3 text-lg text-neutral-200"></p>
+      <p class="review-name mt-2 text-sm text-neutral-500"></p>
     </li>
   </template>
 
 
 
 
-  <!-- Category card used for home category cards -->
+
+  <!-- category card used for home category cards -->
   <template id="categoryCardTemplate">
     <a href="#" data-view="browseview" class="category-card group block">
 

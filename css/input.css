@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
-/* theme. the main colours and fonts */
+/* Theme: colours and fonts — change these to restyle the whole site */
 @theme {
   --color-accent: #a3e635;
   --font-dot: "Doto", monospace;        /* dot-matrix headings (Nothing-style) */
   --font-mono: "Space Mono", monospace; /* small labels and prices */
 }
 
+/* Shared classes used across views */
 @layer components {
-
-  /* for header/footer links */
+  /* Header/footer links */
   .nav-link {
     @apply text-neutral-400 transition-colors hover:text-white;
   }
@@ -19,13 +19,34 @@
     @apply text-white;
   }
 
-  /* small uppercase mono text */
+  /* Small uppercase mono text, e.g. "( New season )" or a product's category */
   .label {
     @apply font-mono text-xs tracking-widest text-neutral-500 uppercase;
   }
 
-  /* main call-to-action button */
+  /* Main call-to-action button */
   .btn-accent {
     @apply inline-block rounded-full bg-accent px-8 py-3 font-mono text-sm font-bold tracking-wide text-black uppercase transition hover:bg-white;
+  }
+
+  /* Breadcrumb: "/" between each item */
+  .breadcrumb li + li::before {
+    content: "/";
+    @apply mr-2 text-neutral-700;
+  }
+
+  /* Product tags, created by JS in showTags() */
+  .tag-pill {
+    @apply rounded-full border border-neutral-700 px-3 py-1 font-mono text-xs text-neutral-300 uppercase;
+  }
+
+  /* Specs / Reviews tab buttons */
+  .tab-btn {
+    @apply -mb-px border-b-2 border-transparent pb-4 font-mono text-sm tracking-widest text-neutral-500 uppercase transition-colors hover:text-white;
+  }
+
+  /* Add this class with JS to the tab that's currently open */
+  .tab-btn.active {
+    @apply border-accent text-white;
   }
 }

@@ -9,36 +9,66 @@ document.addEventListener('DOMContentLoaded', () =>{
     //start in home view
     viewChanger("homeview");
     updateCartCount();
-    const body = document.querySelector("body");
-    body.addEventListener("click", handleNavClick);
     showFeaturedProducts(data.products);
+
+    // using event delegation!
+    document.querySelector("body").addEventListener("click", handleNavClick);
+    document.querySelector("#productview").addEventListener("click", handleProductViewClick);
     showCategories(data.products);
+
 });
 
 
 
-// event delegation! one listener on body handles every click
+// page-wide clicks nav links and product cards. cards appear in home and browse
+// Element.closest(): https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function handleNavClick(e) {
-    // Element.closest(): https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
     const clickedCard = e.target.closest(".product-card");
     const clickedLink = e.target.closest("[data-view]");
-    const clickedTab = e.target.closest(["[data-tab]"]);
-    const clickedAddToCart = e.target.closest("#addToCart");
+
     if (clickedCard !== null) {
         e.preventDefault();
         handleClickedCard(clickedCard);
     } else if (clickedLink !== null) {
         e.preventDefault();
         handleClickedLink(clickedLink);
-        
-    } else if (clickedTab !== null){
-        // for specs/review panel in singleproduct page
+    }
+}
+
+// clicks inside the single product view, specs/reviews tabs and add to cart
+function handleProductViewClick(e) {
+    const clickedTab = e.target.closest("[data-tab]");
+    const clickedAddToCart = e.target.closest("#addToCart");
+
+    if (clickedTab !== null) {
         handleClickedTab(clickedTab);
-    } else if (clickedAddToCart !== null){
+    } else if (clickedAddToCart !== null) {
         handleAddToCart(clickedAddToCart);
     }
-
 }
+
+
+// switch between the specs and reviews panels, and move the green underline
+function handleClickedTab(clickedTab) {
+    const tab = clickedTab.dataset.tab;
+    const specs = document.querySelector("#specsPanel");
+    const reviews = document.querySelector("#reviewsPanel");
+    const specsBtn = document.querySelector('[data-tab="specsPanel"]');
+    const reviewsBtn = document.querySelector('[data-tab="reviewsPanel"]');
+
+    if (tab === "specsPanel") {
+        specs.classList.toggle("hidden", false);
+        reviews.classList.toggle("hidden", true);
+        specsBtn.classList.toggle("active", true);
+        reviewsBtn.classList.toggle("active", false);
+    } else if (tab === "reviewsPanel") {
+        specs.classList.toggle("hidden", true);
+        reviews.classList.toggle("hidden", false);
+        specsBtn.classList.toggle("active", false);
+        reviewsBtn.classList.toggle("active", true);
+    }
+}
+
 
 
 function handleAddToCart(clickedAddToCart) {
@@ -67,7 +97,7 @@ function handleAddToCart(clickedAddToCart) {
 
 function showToast(msg){
     const bar = document.querySelector("#toast");
-    // used a fade instead of toggle and it looks way better
+    // used a fade instead of hidden and it looks way better
     // https://tailwindcss.com/docs/animation
     bar.classList.toggle("opacity-0", false);   // fade in
     bar.textContent = msg;
@@ -86,30 +116,14 @@ function updateCartCount(){
 }
 
 
-// load cart from localStorage, or an empty array if nothing saved yet Lab 10
+// load cart from localstorage, or an empty array if nothing saved yet lab 10
 function loadCart() {
     return JSON.parse(localStorage.getItem("cart")) || [];
 }
 
-// save the current cart array to localStorage, Lab 10
+// save the current cart array to localstorage, lab 10
 function saveCart() {
     localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-
-// handel swapping tabs
-function handleClickedTab(clickedTab) {
-    const tab = clickedTab.dataset.tab;
-    const specs = document.querySelector("#specsPanel");
-    const reviews = document.querySelector("#reviewsPanel");
-
-    if (tab === "specsPanel") {
-        specs.classList.toggle("hidden", false);
-        reviews.classList.toggle("hidden", true);
-    } else if (tab === "reviewsPanel") {
-        specs.classList.toggle("hidden", true);
-        reviews.classList.toggle("hidden", false);
-    }
 }
 
 
@@ -296,7 +310,8 @@ function viewChanger(viewId) {
 function showCategories(products) {
     const template = document.querySelector("#categoryCardTemplate");
     const parent = document.querySelector("#categoryGrid");
-
+    
+    // citation provided in asg details
     const categories = new Set();
 
     // find all categories
