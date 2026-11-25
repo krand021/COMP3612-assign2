@@ -14,11 +14,10 @@ document.addEventListener('DOMContentLoaded', () =>{
     // using event delegation!
     document.querySelector("body").addEventListener("click", handleNavClick);
     document.querySelector("#productview").addEventListener("click", handleProductViewClick);
+    document.querySelector("#cartview").addEventListener("click",handleCartViewClick);
     showCategories(data.products);
 
 });
-
-
 
 // page-wide clicks nav links and product cards. cards appear in home and browse
 // Element.closest(): https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
@@ -35,17 +34,117 @@ function handleNavClick(e) {
     }
 }
 
+
+
+
+
+
+// nav link clicked, show that view or the about popup
+function handleClickedLink(link) {
+    const viewName = link.dataset.view;
+
+    // about is a popup, not a view, so we gotta treat it differently
+    if (viewName === "aboutdialog") {
+        document.querySelector("#aboutdialog").showModal();
+    } else if(viewName ==="cartview"){
+        showCart();
+        viewChanger(viewName);
+
+    }
+    else {
+        viewChanger(viewName);
+    }
+}
+
+function handleCartViewClick(e) {
+    const clickedRemove = e.target.closest(".remove-btn");
+
+    if (clickedRemove !== null) {
+        handleRemoveItem(clickedRemove);
+    }
+}
+
+function handleRemoveItem(clickedRemove){
+    const clickedId = Number(clickedRemove.dataset.productId);
+    cart = cart.filter(product => product.id !== clickedId);
+    saveCart();
+    updateCartCount();
+    showCart();
+}
+
 // clicks inside the single product view, specs/reviews tabs and add to cart
 function handleProductViewClick(e) {
     const clickedTab = e.target.closest("[data-tab]");
     const clickedAddToCart = e.target.closest("#addToCart");
-
     if (clickedTab !== null) {
         handleClickedTab(clickedTab);
     } else if (clickedAddToCart !== null) {
         handleAddToCart(clickedAddToCart);
     }
 }
+
+
+function showCart(){
+    const template = document.querySelector("#cartRowTemplate");
+    
+    document.querySelector("#cartItems").replaceChildren();
+    document.querySelector("#emptyCartMsg").classList.toggle('hidden', true);
+
+    document.querySelector("#shippingType").disabled = false;
+    document.querySelector("#country").disabled = false;
+    document.querySelector("#checkout").disabled = false;
+           
+    if (cart.length === 0){
+        document.querySelector("#emptyCartMsg").classList.toggle('hidden', false);
+        document.querySelector("#shippingType").disabled = true;
+        document.querySelector("#country").disabled = true;
+        document.querySelector("#checkout").disabled = true;
+    }
+    else{
+        for(const item of cart){
+            
+            const product = data.products.find(product => product.id === item.id);
+            const line = template.content.cloneNode(true);
+
+            line.querySelector(".remove-btn").dataset.productId = product.id;
+            line.querySelector(".item-thumbnail").setAttribute("src", product.thumbnail);
+            line.querySelector(".item-thumbnail").setAttribute("alt", product.title);
+            line.querySelector(".item-title").textContent = product.title;
+            line.querySelector(".item-price").textContent = `$${product.price.toFixed(2)}`;
+            line.querySelector(".item-quantity").textContent = item.quantity;
+            line.querySelector(".item-subtotal").textContent = `$${(product.price *item.quantity).toFixed(2)}`;
+
+            document.querySelector("#cartItems").appendChild(line);
+        }
+    }
+    updateSummary()
+}
+
+
+
+function updateSummary(){
+    // merch total
+    const shippingType = document.querySelector("#shippingType").value;
+    const country = document.querySelector("#country").value;
+
+    let merchTotal;
+    let shipping;
+    for(const item of cart){
+        const product = data.products.find(product => product.id === item.id);
+        merchTotal += (product.price *item.quantity)
+    }
+
+    if(merchTotal === 0 || merchTotal > 500) {
+        shipping = 0
+    }
+    else{
+        // continue from here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    }
+
+
+
+}
+
 
 
 // switch between the specs and reviews panels, and move the green underline
@@ -244,22 +343,6 @@ function makeStars(rating) {
     }
 
     return stars;
-}
-
-
-
-
-
-// nav link clicked, show that view or the about popup
-function handleClickedLink(link) {
-    const viewName = link.dataset.view;
-
-    // about is a popup, not a view, so we gotta treat it differently
-    if (viewName === "aboutdialog") {
-        document.querySelector("#aboutdialog").showModal();
-    } else {
-        viewChanger(viewName);
-    }
 }
 
 

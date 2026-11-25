@@ -208,9 +208,69 @@
 
     <!-- Shopping Cart View -->
     <section id="cartview" class="hidden mx-auto max-w-7xl px-6 py-10">
-      <h1>Cart</h1>
+      <h1>Shopping Cart</h1>
+
+      <!-- if cart is empty -->
+      <p id="emptyCartMsg" class="hidden">Your cart is empty.</p>
+
+
+      <!-- table dynamicly displaying items with templates -->
+      <table>
+        <thead>
+            <tr>
+              <th></th>
+              <th>Item</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+
+          <tbody id="cartItems">
+            <!-- one <tr> per cart item added by JS from template -->
+
+          </tbody>
+        </table>
+
+
+          <!-- shipping and country selectors -->
+          <div id="shipping">
+            <p>Shipping</p>
+            <div>
+                <select id="shippingType">
+                  <option value="standard">Standard</option>
+                  <option value="express">Express</option>
+                  <option value="priority">Priority</option>
+                </select>
+                <select id="country">
+                  <option value="canada">Canada</option>
+                  <option value="us">United States</option>
+                  <option value="international">International</option>
+                </select>
+            </div>
+          </div>
+
+          <!-- summary box -->
+          <div id="summary">
+            <p>Summary</p>
+            <div>
+              <p>Merchandise</p><p id="merchTotal"></p>
+              <p>Shipping</p><p id="shippingTotal"></p>
+              <p>Tax</p> <p id="taxTotal"></p>
+              <p>Total</p> <p id="grandTotal"></p>
+            </div>
+          </div>
+
+          <button id="checkout">Checkout</button>
     </section>
   </main>
+
+
+
+
+
+
+
 
   <!-- About Us Dialog -->
   <dialog id="aboutdialog"
@@ -287,6 +347,26 @@
       </div>
     </a>
   </template>
+
+
+<!-- one cart row, cloned for each item in the cart -->
+<template id="cartRowTemplate">
+  <tr>
+    <td><button class="remove-btn">-</button></td>
+    <td>
+      <img src="" alt="" class="item-thumbnail">
+      <span class="item-title"></span>
+    </td>
+    <td class="item-price"></td>
+    <td class="item-quantity"></td>
+    <td class="item-subtotal"></td>
+  </tr>
+</template>
+
+
+
+
+
   <!-- toast message, shown by showToast() -->
 <div id="toast" class="fixed bottom-6 right-6 z-50 rounded-full bg-accent px-6 py-3 font-mono text-sm font-bold text-black opacity-0 pointer-events-none transition-opacity duration-500"></div>
   <script type="module" src="script.js"></script>
