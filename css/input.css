@@ -9,24 +9,43 @@
 
 /* Shared classes used across views */
 @layer components {
-  /* Header/footer links */
-  .nav-link {
-    @apply text-neutral-400 transition-colors hover:text-white;
+  /* Centred content column used by every view */
+  .page {
+    @apply mx-auto max-w-7xl px-6 py-12;
   }
 
-  /* Add this class with JS to highlight the current view's link */
-  .nav-link.active {
-    @apply text-white;
+  /* Dot-matrix section heading */
+  .heading {
+    @apply font-dot text-4xl text-white;
   }
 
-  /* Small uppercase mono text, e.g. "( New season )" or a product's category */
+  /* Small uppercase mono text, e.g. a product's category or a form label */
   .label {
     @apply font-mono text-xs tracking-widest text-neutral-500 uppercase;
   }
 
+  /* Dark box with a thin border: image frames, cart sidebar, dialog */
+  .box {
+    @apply rounded-xl border border-neutral-800 bg-neutral-950;
+  }
+
+  /* Header/footer links */
+  .nav-link {
+    @apply text-neutral-400 hover:text-white;
+  }
+
+  .nav-link.active {
+    @apply text-white;
+  }
+
   /* Main call-to-action button */
   .btn-accent {
-    @apply inline-block rounded-full bg-accent px-8 py-3 font-mono text-sm font-bold tracking-wide text-black uppercase transition hover:bg-white;
+    @apply inline-block rounded-full bg-accent px-8 py-3 font-mono text-sm font-bold text-black uppercase hover:bg-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-accent;
+  }
+
+  /* Text inputs and selects (quantity, shipping, country) */
+  .field {
+    @apply rounded-full border border-neutral-700 bg-black px-4 py-2 font-mono text-sm text-white focus:border-accent focus:outline-none disabled:opacity-30;
   }
 
   /* Breadcrumb: "/" between each item */
@@ -40,12 +59,11 @@
     @apply rounded-full border border-neutral-700 px-3 py-1 font-mono text-xs text-neutral-300 uppercase;
   }
 
-  /* Specs / Reviews tab buttons */
+  /* Specs / Reviews tab buttons (JS adds .active to the open one) */
   .tab-btn {
-    @apply -mb-px border-b-2 border-transparent pb-4 font-mono text-sm tracking-widest text-neutral-500 uppercase transition-colors hover:text-white;
+    @apply -mb-px border-b-2 border-transparent pb-4 font-mono text-sm tracking-widest text-neutral-500 uppercase hover:text-white focus:outline-none;
   }
 
-  /* Add this class with JS to the tab that's currently open */
   .tab-btn.active {
     @apply border-accent text-white;
   }

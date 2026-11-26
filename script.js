@@ -3,6 +3,21 @@ import data from './data/data-minifed.json' with { type: 'json' };
 
 const VIEWIDS = ["homeview", "categoryview", "browseview", "productview", "cartview"];
 const FEATURED_IDS = [99,80,95,42];
+const FEATURED_CATEGORIES = ['laptops','mens-watched','groceries','fragrences'];
+
+const SHIPPING_RATES = [
+    { type: "standard", country: "canada", cost: 10 },
+    { type: "express", country: "canada", cost: 25 },
+    { type: "priority", country: "canada", cost: 35 },
+    { type: "standard", country: "us", cost: 15 },
+    { type: "express", country: "us", cost: 25 },
+    { type: "priority", country: "us", cost: 50 },
+    { type: "standard", country: "int", cost: 20 },
+    { type: "express", country: "int", cost: 30 },
+    { type: "priority", country: "int", cost: 50 },
+];
+
+
 let cart = loadCart();
 
 document.addEventListener('DOMContentLoaded', () =>{
@@ -15,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () =>{
     document.querySelector("body").addEventListener("click", handleNavClick);
     document.querySelector("#productview").addEventListener("click", handleProductViewClick);
     document.querySelector("#cartview").addEventListener("click",handleCartViewClick);
+    document.querySelector("#cartview").addEventListener("change",updateSummary);
+
     showCategories(data.products);
 
 });
@@ -58,9 +75,13 @@ function handleClickedLink(link) {
 
 function handleCartViewClick(e) {
     const clickedRemove = e.target.closest(".remove-btn");
+    const clickedCheckout = e.target.closest("#checkout");
 
     if (clickedRemove !== null) {
         handleRemoveItem(clickedRemove);
+    }
+    else if (clickedCheckout !== null){
+        handleCheckout();
     }
 }
 
@@ -72,6 +93,14 @@ function handleRemoveItem(clickedRemove){
     showCart();
 }
 
+function handleCheckout(){
+    viewChanger("homeview");
+    showToast(`Items checked out!`);
+    cart = [];
+    saveCart();
+    updateCartCount();
+    showCart();
+}
 // clicks inside the single product view, specs/reviews tabs and add to cart
 function handleProductViewClick(e) {
     const clickedTab = e.target.closest("[data-tab]");
@@ -117,7 +146,7 @@ function showCart(){
             document.querySelector("#cartItems").appendChild(line);
         }
     }
-    updateSummary()
+    updateSummary();
 }
 
 
@@ -127,23 +156,38 @@ function updateSummary(){
     const shippingType = document.querySelector("#shippingType").value;
     const country = document.querySelector("#country").value;
 
-    let merchTotal;
+    let merchTotal = 0;
     let shipping;
+    let tax = 0;
+    let total;
+
     for(const item of cart){
         const product = data.products.find(product => product.id === item.id);
-        merchTotal += (product.price *item.quantity)
+        merchTotal += (product.price *item.quantity);
     }
 
     if(merchTotal === 0 || merchTotal > 500) {
-        shipping = 0
+        shipping = 0;
     }
     else{
-        // continue from here !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //call the shipping price based on the country and type of shipping
+        shipping = SHIPPING_RATES.find(rate => rate.country === country && rate.type === shippingType).cost;
+        
+        
+    }
+    if(country === 'canada'){
+        tax = 0.05 *merchTotal;
     }
 
+    total = tax + shipping + merchTotal;
 
-
+    document.querySelector("#merchTotal").textContent = `$${merchTotal.toFixed(2)}`;
+    document.querySelector("#shippingTotal").textContent = `$${shipping.toFixed(2)}`;
+    document.querySelector("#taxTotal").textContent = `$${tax.toFixed(2)}`;
+    document.querySelector("#grandTotal").textContent = `$${total.toFixed(2)}`;
 }
+
+
 
 
 
@@ -419,3 +463,4 @@ function showCategories(products) {
         parent.appendChild(card);
     }
 }
+
