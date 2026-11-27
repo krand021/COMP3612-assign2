@@ -1,67 +1,54 @@
 @import "tailwindcss";
 
-/* Theme: colours and fonts — change these to restyle the whole site */
 @theme {
   --color-accent: #a3e635;
-  --font-dot: "Doto", monospace;        /* dot-matrix headings (Nothing-style) */
+  --font-dot: "Doto", monospace;        /* dot-matrix headings from Nothing */
   --font-mono: "Space Mono", monospace; /* small labels and prices */
 }
 
-/* Shared classes used across views */
+/* shared across views different */
 @layer components {
-  /* Centred content column used by every view */
   .page {
-    @apply mx-auto max-w-7xl px-6 py-12;
+    @apply mx-auto max-w-6xl px-6 py-10;
   }
 
-  /* Dot-matrix section heading */
+  /* Dot-matrix section */
   .heading {
-    @apply font-dot text-4xl text-white;
+    @apply mb-6 font-dot text-4xl text-white;
   }
 
-  /* Small uppercase mono text, e.g. a product's category or a form label */
+  /* grey mono text for labels */
   .label {
-    @apply font-mono text-xs tracking-widest text-neutral-500 uppercase;
+    @apply font-mono text-sm text-neutral-500 uppercase;
   }
 
-  /* Dark box with a thin border: image frames, cart sidebar, dialog */
+  /* bordered box */
   .box {
-    @apply rounded-xl border border-neutral-800 bg-neutral-950;
+    @apply rounded-md border border-neutral-800;
   }
 
-  /* Header/footer links */
+  /* header/footer links */
   .nav-link {
     @apply text-neutral-400 hover:text-white;
   }
 
-  .nav-link.active {
-    @apply text-white;
-  }
-
-  /* Main call-to-action button */
+  /* main button */
   .btn-accent {
-    @apply inline-block rounded-full bg-accent px-8 py-3 font-mono text-sm font-bold text-black uppercase hover:bg-white disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-accent;
+    @apply rounded-md bg-accent px-5 py-2 font-mono font-bold text-black hover:bg-lime-300 disabled:opacity-40;
   }
 
-  /* Text inputs and selects (quantity, shipping, country) */
+  /* inputs and selects */
   .field {
-    @apply rounded-full border border-neutral-700 bg-black px-4 py-2 font-mono text-sm text-white focus:border-accent focus:outline-none disabled:opacity-30;
+    @apply rounded-md border border-neutral-700 bg-black px-3 py-2 text-white;
   }
-
-  /* Breadcrumb: "/" between each item */
-  .breadcrumb li + li::before {
-    content: "/";
-    @apply mr-2 text-neutral-700;
-  }
-
-  /* Product tags, created by JS in showTags() */
+  /* product tags, created by JS in showTags() */
   .tag-pill {
-    @apply rounded-full border border-neutral-700 px-3 py-1 font-mono text-xs text-neutral-300 uppercase;
+    @apply rounded border border-neutral-700 px-2 py-1 text-xs text-neutral-300;
   }
 
-  /* Specs / Reviews tab buttons (JS adds .active to the open one) */
+  /* reviews tab buttons JS adds .active to the open */
   .tab-btn {
-    @apply -mb-px border-b-2 border-transparent pb-4 font-mono text-sm tracking-widest text-neutral-500 uppercase hover:text-white focus:outline-none;
+    @apply border-b-2 border-transparent px-1 pb-2 font-mono text-neutral-400 hover:text-white;
   }
 
   .tab-btn.active {

@@ -13,20 +13,20 @@
     rel="stylesheet">
 </head>
 
-<body class="flex min-h-screen flex-col bg-black text-neutral-200 antialiased">
+<body class="flex min-h-screen flex-col bg-black text-neutral-200">
 
-  <header class="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-neutral-800 bg-black px-6">
-    <a href="#" data-view="homeview" class="logo text-xl font-bold text-white">Logo</a>
+  <header class="flex items-center justify-between border-b border-neutral-800 px-6 py-4">
+    <a href="#" data-view="homeview" class="logo font-dot text-2xl text-white">Logo</a>
 
-    <nav class="flex gap-8 text-lg">
+    <nav class="flex gap-6">
       <a href="#" data-view="homeview" class="nav-link">Home</a>
       <a href="#" data-view="browseview" class="nav-link">Browse</a>
       <a href="#" data-view="categoryview" class="nav-link">Category</a>
       <a href="#" data-view="aboutdialog" class="nav-link">About</a>
     </nav>
 
-    <a href="#" data-view="cartview" class="cart-link nav-link flex items-center gap-2 text-lg">
-      Cart <span id="cart-count" class="rounded-full bg-accent px-2 text-xs font-bold text-black">0</span>
+    <a href="#" data-view="cartview" class="cart-link nav-link">
+      Cart (<span id="cart-count" class="text-accent">0</span>)
     </a>
   </header>
 
@@ -41,48 +41,44 @@
     <section id="homeview">
 
       <!-- hero -->
-      <div class="relative isolate flex h-[calc(100vh-4rem)] flex-col items-center justify-center text-center">
+      <div class="relative isolate flex h-[80vh] flex-col items-center justify-center text-center">
         <img src="images/andrew-kliatskyi-7og8GybWcZw-unsplash.jpg" alt="hero image black"
           class="absolute inset-0 -z-10 h-full w-full object-cover">
-        <p class="label mb-6">( New products )</p>
-        <h1 class="font-dot text-8xl leading-none text-white lg:text-9xl">
+        <p class="label mb-4">( New products )</p>
+        <h1 class="font-dot text-7xl text-white">
           Black. <br> Friday. <br> Deals.
         </h1>
-        <p class="mt-8 text-neutral-400">
+        <p class="mt-6 text-neutral-400">
           A small store with everyday things. Simple products, all categories.
         </p>
-        <a href="#" data-view="browseview" class="btn-accent mt-10">Shop all categories</a>
+        <a href="#" data-view="browseview" class="btn-accent mt-8">Shop all categories</a>
       </div>
 
       <!-- Featured products -->
       <div class="page">
-        <div class="mb-8 flex items-end justify-between">
+        <div class="flex justify-between">
           <h2 class="heading">Featured Products</h2>
-          <a href="#" data-view="browseview" class="label hover:text-white">View all &rarr;</a>
+          <a href="#" data-view="browseview" class="nav-link">View all &rarr;</a>
         </div>
 
-                <!-- cards are added here by JS from #productCardTemplate -->
-        <div id="featuredProducts" class="grid grid-cols-4 gap-8"></div>
+        <!-- cards are added here by JS from #productCardTemplate -->
+        <div id="featuredProducts" class="grid grid-cols-4 gap-6"></div>
       </div>
 
-    <div class="page">
-        <div class="mb-8 flex items-end justify-between">
+      <div class="page">
+        <div class="flex justify-between">
           <h2 class="heading">Best Categories</h2>
-          <a href="#" data-view="categoryview" class="label hover:text-white">View all &rarr;</a>
+          <a href="#" data-view="categoryview" class="nav-link">View all &rarr;</a>
         </div>
-            <!-- cards are added here by JS from #categoryCardTemplate -->
-        <div id="featuredCategories" class="grid grid-cols-4 gap-8"></div>
-    </div>
-    
 
+        <!-- cards are added here by JS from #categoryCardTemplate -->
+        <div id="featuredCategories" class="grid grid-cols-4 gap-6"></div>
+      </div>
 
-
-
-
-      <ul class="flex justify-center divide-x divide-neutral-800 border-y border-neutral-800 py-8">
-        <li class="label px-12">Free shipping</li>
-        <li class="label px-12">Deals for Randy</li>
-        <li class="label px-12">No returns ever</li>
+      <ul class="flex justify-center gap-16 border-t border-neutral-800 py-6">
+        <li class="label">Free shipping</li>
+        <li class="label">Deals for Randy</li>
+        <li class="label">No returns ever</li>
       </ul>
     </section>
 
@@ -92,18 +88,18 @@
     <section id="categoryview" class="hidden">
 
       <!-- hero -->
-      <div class="relative isolate flex h-[40vh] flex-col items-center justify-center text-center">
+      <div class="relative isolate flex h-[35vh] flex-col items-center justify-center text-center">
         <img src="images/andrew-kliatskyi-7og8GybWcZw-unsplash.jpg" alt="Categories hero"
           class="absolute inset-0 -z-10 h-full w-full object-cover opacity-50">
-        <p class="label mb-6">( Explore our collection )</p>
-        <h1 class="font-dot text-8xl text-white">Categories.</h1>
-        <p class="mt-6 text-neutral-400">Find exactly what you're looking for.</p>
+        <p class="label mb-4">( Explore our collection )</p>
+        <h1 class="font-dot text-7xl text-white">Categories.</h1>
+        <p class="mt-4 text-neutral-400">Find exactly what you're looking for.</p>
       </div>
 
       <!-- catagories -->
       <div class="page">
-        <p class="label mb-3">( Browse by category )</p>
-        <h2 class="heading mb-8">Explore.</h2>
+        <p class="label mb-2">( Browse by category )</p>
+        <h2 class="heading">Explore.</h2>
 
         <!-- dynmically added catagory cards -->
         <div id="categoryGrid" class="grid grid-cols-4 gap-6"></div>
@@ -123,43 +119,37 @@
     <section id="productview" class="hidden page">
 
       <!-- breadcrumb -->
-      <nav class="mb-10">
-        <ol class="breadcrumb label flex gap-2">
-          <li>Home</li>
-          <li id="crumbCategory"></li>
-          <li id="crumbTitle" class="text-neutral-300"></li>
-        </ol>
-      </nav>
+      <ol class="label mb-6 flex gap-2">
+        <li>Home</li>
+        <li>/</li>
+        <li id="crumbCategory"></li>
+        <li>/</li>
+        <li id="crumbTitle"></li>
+      </ol>
 
       <!-- image + info side by side -->
-      <div class="grid grid-cols-2 gap-16">
+      <div class="grid grid-cols-2 gap-10">
 
         <!-- image -->
-        <div class="box aspect-square">
-          <img id="singleProdImage" src="" alt="" class="h-full w-full object-contain p-10">
-        </div>
+        <img id="singleProdImage" src="" alt="" class="box w-full p-6">
 
         <!-- info -->
-        <div class="flex flex-col">
-          <h1 id="productTitle" class="font-dot text-5xl text-white"></h1>
-          <h2 id="productPrice" class="mt-4 font-mono text-3xl text-accent"></h2>
+        <div>
+          <h1 id="productTitle" class="font-dot text-4xl text-white"></h1>
+          <p id="productPrice" class="mt-2 font-mono text-2xl text-accent"></p>
 
-          <div class="mt-6 flex items-center gap-6">
-            <p id="ratings" class="text-lg text-white"></p>
-            <p id="sku" class="label"></p>
-          </div>
+          <p id="ratings" class="mt-4"></p>
+          <p id="sku" class="label mt-1"></p>
 
-          <div id="tags" class="mt-6 flex flex-wrap gap-2"></div>
+          <div id="tags" class="mt-4 flex gap-2"></div>
 
-          <p id="stock" class="label mt-6 text-accent"></p>
-          <p id="prodDesc" class="mt-4 text-neutral-400"></p>
+          <p id="stock" class="mt-4 text-accent"></p>
+          <p id="prodDesc" class="mt-2 text-neutral-400"></p>
 
           <!-- add to cart -->
-          <div class="addToCart mt-auto flex items-end gap-4 border-t border-neutral-800 pt-8">
-            <label class="flex flex-col gap-2">
-              <span class="label">Quantity</span>
-              <input id="quantity" type="number" min="1" value="1" class="field w-24">
-            </label>
+          <div class="addToCart mt-8 flex items-center gap-3">
+            <label for="quantity" class="label">Qty</label>
+            <input id="quantity" type="number" min="1" value="1" class="field w-20">
             <button id="addToCart" class="btn-accent">+ Add To Cart</button>
           </div>
         </div>
@@ -167,30 +157,23 @@
       </div>
 
       <!-- tabs -->
-      <div class="tabs mt-20 flex gap-8 border-b border-neutral-800">
+      <div class="tabs mt-12 flex gap-6 border-b border-neutral-800">
         <button data-tab="specsPanel" class="tab-btn active">Specifications</button>
         <button data-tab="reviewsPanel" class="tab-btn">Reviews</button>
       </div>
 
       <!-- specifications panel (one set per product, so no template) -->
-      <div id="specsPanel" class="py-8">
-        <dl class="grid max-w-2xl grid-cols-[10rem_1fr] gap-4">
-          <dt class="label">Weight</dt>
-          <dd id="specWeight"></dd>
-          <dt class="label">Dimensions</dt>
-          <dd id="specDimensions"></dd>
-          <dt class="label">Warranty</dt>
-          <dd id="specWarranty"></dd>
-          <dt class="label">Shipping</dt>
-          <dd id="specShipping"></dd>
-          <dt class="label">Returns</dt>
-          <dd id="specReturns"></dd>
-        </dl>
+      <div id="specsPanel" class="py-6">
+        <p><span class="label">Weight:</span> <span id="specWeight"></span></p>
+        <p><span class="label">Dimensions:</span> <span id="specDimensions"></span></p>
+        <p><span class="label">Warranty:</span> <span id="specWarranty"></span></p>
+        <p><span class="label">Shipping:</span> <span id="specShipping"></span></p>
+        <p><span class="label">Returns:</span> <span id="specReturns"></span></p>
       </div>
 
       <!-- reviews panel (cards added by JS from #reviewTemplate) -->
-      <div id="reviewsPanel" class="hidden py-8">
-        <ul id="reviewList" class="max-h-96 divide-y divide-neutral-800 overflow-y-auto pr-4"></ul>
+      <div id="reviewsPanel" class="hidden py-6">
+        <ul id="reviewList" class="max-h-96 overflow-y-auto"></ul>
       </div>
 
     </section>
@@ -199,68 +182,58 @@
 
     <!-- Shopping Cart View -->
     <section id="cartview" class="hidden page">
-      <h1 class="heading mb-8">Cart.</h1>
+      <h1 class="heading">Cart.</h1>
 
       <!-- table dynamicly displaying items with templates -->
       <table class="w-full">
         <thead class="label border-b border-neutral-800 text-left">
           <tr>
-            <th class="w-10 pb-4"></th>
-            <th class="pb-4 font-normal">Item</th>
-            <th class="pb-4 text-right font-normal">Price</th>
-            <th class="pb-4 text-right font-normal">Qty</th>
-            <th class="pb-4 text-right font-normal">Subtotal</th>
+            <th class="pb-2"></th>
+            <th class="pb-2">Item</th>
+            <th class="pb-2">Price</th>
+            <th class="pb-2">Qty</th>
+            <th class="pb-2">Subtotal</th>
           </tr>
         </thead>
 
-        <tbody id="cartItems" class="divide-y divide-neutral-800">
+        <tbody id="cartItems">
           <!-- one <tr> per cart item added by JS from template -->
         </tbody>
       </table>
 
       <!-- if cart is empty -->
-      <p id="emptyCartMsg" class="hidden py-10 text-neutral-400">Your cart is empty.</p>
+      <p id="emptyCartMsg" class="hidden py-6 text-neutral-400">Your cart is empty.</p>
 
-      <div class="mt-12 grid grid-cols-2 items-start gap-12 border-t border-neutral-800 pt-12">
+      <div class="mt-10 grid grid-cols-2 gap-10">
 
         <!-- shipping and country selectors -->
-        <div id="shipping" class="box flex max-w-sm flex-col gap-3 p-6">
-          <p class="label">Shipping</p>
-          <select id="shippingType" class="field">
-            <option value="standard">Standard</option>
-            <option value="express">Express</option>
-            <option value="priority">Priority</option>
-          </select>
-          <select id="country" class="field">
-            <option value="canada">Canada</option>
-            <option value="us">United States</option>
-            <option value="int">International</option>
-          </select>
+        <div id="shipping">
+          <h2 class="label mb-3">Shipping</h2>
+          <div class="flex gap-3">
+            <select id="shippingType" class="field">
+              <option value="standard">Standard</option>
+              <option value="express">Express</option>
+              <option value="priority">Priority</option>
+            </select>
+            <select id="country" class="field">
+              <option value="canada">Canada</option>
+              <option value="us">United States</option>
+              <option value="int">International</option>
+            </select>
+          </div>
         </div>
 
         <!-- summary box + checkout -->
-        <div>
-          <div id="summary" class="box p-6 font-mono text-sm">
-            <p class="label mb-4">Summary</p>
-            <div class="flex justify-between py-1">
-              <span class="text-neutral-400">Merchandise</span>
-              <span id="merchTotal"></span>
-            </div>
-            <div class="flex justify-between py-1">
-              <span class="text-neutral-400">Shipping</span>
-              <span id="shippingTotal"></span>
-            </div>
-            <div class="flex justify-between py-1">
-              <span class="text-neutral-400">Tax</span>
-              <span id="taxTotal"></span>
-            </div>
-            <div class="mt-4 flex items-baseline justify-between border-t border-neutral-800 pt-4">
-              <span class="text-white">Total</span>
-              <span id="grandTotal" class="text-lg text-accent"></span>
-            </div>
-          </div>
+        <div id="summary" class="box p-5 font-mono">
+          <h2 class="label mb-3">Summary</h2>
+          <p class="flex justify-between">Merchandise <span id="merchTotal"></span></p>
+          <p class="flex justify-between">Shipping <span id="shippingTotal"></span></p>
+          <p class="flex justify-between">Tax <span id="taxTotal"></span></p>
+          <p class="mt-3 flex justify-between border-t border-neutral-800 pt-3 text-white">
+            Total <span id="grandTotal" class="text-accent"></span>
+          </p>
 
-          <button id="checkout" class="btn-accent mt-6 w-full">Checkout</button>
+          <button id="checkout" class="btn-accent mt-5 w-full">Checkout</button>
         </div>
 
       </div>
@@ -270,12 +243,12 @@
 
 
   <!-- About Us Dialog -->
-  <dialog id="aboutdialog" class="box m-auto w-full max-w-lg p-8 text-neutral-200 backdrop:bg-black/70">
+  <dialog id="aboutdialog" class="box m-auto w-full max-w-lg bg-black p-6 text-neutral-200 backdrop:bg-black/70">
     <h1 class="heading">About us</h1>
-    <form method="dialog"><button class="btn-accent mt-8">Close</button></form>
+    <form method="dialog"><button class="btn-accent">Close</button></form>
   </dialog>
 
-  <footer class="flex flex-col items-center gap-1 border-t border-neutral-800 py-6 text-sm text-neutral-500">
+  <footer class="border-t border-neutral-800 py-6 text-center text-sm text-neutral-500">
     <a href="https://github.com/krand021/COMP3612-assign2" target="_blank" rel="noopener" class="nav-link">GitHub Repo</a>
     <p>COMP 3612 Assignment 2 Mount Royal University</p>
     <p>Jaden Cowie | Kieran Randall</p>
@@ -286,69 +259,55 @@
 
   <!-- product card used for home featured products-->
   <template id="productCardTemplate">
-    <a href="#" class="product-card group block">
-      <div class="box aspect-square overflow-hidden">
-        <img src="" alt="" class="h-full w-full object-contain p-6 transition group-hover:scale-105">
-      </div>
-      <div class="mt-4 flex items-start justify-between gap-4">
-        <div>
-          <p class="card-category label"></p>
-          <h3 class="card-title mt-1 text-white"></h3>
-        </div>
-        <p class="card-price font-mono text-accent"></p>
-      </div>
+    <a href="#" class="product-card block">
+      <img src="" alt="" class="box aspect-square w-full object-contain p-4 hover:border-accent">
+      <p class="card-category label mt-2"></p>
+      <h3 class="card-title text-white"></h3>
+      <p class="card-price font-mono text-accent"></p>
     </a>
   </template>
 
 
   <!-- one review, cloned for each review in product reviews -->
   <template id="reviewTemplate">
-    <li class="review py-6">
-      <div class="flex justify-between">
-        <p class="review-rating text-white"></p>
-        <p class="review-date label"></p>
-      </div>
-      <p class="review-comment mt-3 text-lg"></p>
-      <p class="review-name mt-2 text-sm text-neutral-500"></p>
+    <li class="review border-b border-neutral-800 py-4">
+      <p class="review-rating text-white"></p>
+      <p class="review-comment"></p>
+      <p class="text-sm text-neutral-500">
+        <span class="review-name"></span> - <span class="review-date"></span>
+      </p>
     </li>
   </template>
 
 
   <!-- category card used for home category cards -->
   <template id="categoryCardTemplate">
-    <a href="#" data-view="browseview" class="category-card group block">
-      <div class="box aspect-square overflow-hidden group-hover:border-accent">
-        <img src="" alt="" class="h-full w-full object-contain p-10 transition group-hover:scale-105">
-      </div>
-      <div class="mt-4 flex justify-between text-xl">
-        <h3 class="category-name text-white capitalize group-hover:text-accent"></h3>
-        <span class="text-neutral-500 group-hover:text-accent">&rarr;</span>
-      </div>
+    <a href="#" data-view="browseview" class="category-card block">
+      <img src="" alt="" class="box aspect-square w-full object-contain p-6 hover:border-accent">
+      <h3 class="category-name mt-2 text-white capitalize"></h3>
     </a>
   </template>
 
 
   <!-- one cart row, cloned for each item in the cart -->
   <template id="cartRowTemplate">
-    <tr>
-      <td class="py-4">
-        <button class="remove-btn h-7 w-7 rounded-full border border-neutral-700 text-neutral-400 hover:border-white hover:text-white">-</button>
+    <tr class="border-b border-neutral-800">
+      <td class="py-3">
+        <button class="remove-btn rounded border border-neutral-700 px-2 hover:border-white">-</button>
       </td>
-      <td class="py-4">
-        <div class="flex items-center gap-4">
-          <img src="" alt="" class="item-thumbnail box h-16 w-16 object-contain p-1">
-          <span class="item-title text-white"></span>
-        </div>
+      <td class="py-3">
+        <img src="" alt="" class="item-thumbnail inline h-14 w-14 object-contain">
+        <span class="item-title ml-2 text-white"></span>
       </td>
-      <td class="item-price py-4 text-right font-mono text-neutral-400"></td>
-      <td class="item-quantity py-4 text-right font-mono"></td>
-      <td class="item-subtotal py-4 text-right font-mono text-white"></td>
+      <td class="item-price py-3 font-mono"></td>
+      <td class="item-quantity py-3 font-mono"></td>
+      <td class="item-subtotal py-3 font-mono text-white"></td>
     </tr>
   </template>
 
 
   <!-- toast message, shown by showToast() -->
-  <div id="toast" class="pointer-events-none fixed right-6 bottom-6 z-50 rounded-full bg-accent px-6 py-3 font-mono text-sm font-bold text-black opacity-0 transition-opacity duration-500"></div>
+  <div id="toast" class="pointer-events-none fixed right-6 bottom-6 rounded-md bg-accent px-5 py-3 font-mono font-bold text-black opacity-0 transition-opacity duration-500"></div>
 
   <script type="module" src="script.js"></script>
 </body>
