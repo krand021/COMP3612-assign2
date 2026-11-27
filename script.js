@@ -3,7 +3,7 @@ import data from './data/data-minifed.json' with { type: 'json' };
 
 const VIEWIDS = ["homeview", "categoryview", "browseview", "productview", "cartview"];
 const FEATURED_IDS = [99,80,95,42];
-const FEATURED_CATEGORIES = ['laptops','mens-watched','groceries','fragrences'];
+const FEATURED_CATEGORIES = ['laptops','mens-watches','groceries','fragrances'];
 
 const SHIPPING_RATES = [
     { type: "standard", country: "canada", cost: 10 },
@@ -32,7 +32,10 @@ document.addEventListener('DOMContentLoaded', () =>{
     document.querySelector("#cartview").addEventListener("click",handleCartViewClick);
     document.querySelector("#cartview").addEventListener("change",updateSummary);
 
-    showCategories(data.products);
+    // populate browser view
+    showCategories(data.products, getAllCategories(data.products), "#categoryGrid");
+    //popualte four browser views in home view
+    showCategories(data.products, FEATURED_CATEGORIES, "#featuredCategories");
 
 });
 
@@ -434,24 +437,23 @@ function viewChanger(viewId) {
     }
 }
 
-function showCategories(products) {
-    const template = document.querySelector("#categoryCardTemplate");
-    const parent = document.querySelector("#categoryGrid");
-    
-    // citation provided in asg details
-    const categories = new Set();
 
-    // find all categories
+
+function getAllCategories(products) {
+    const categories = new Set();
     for (const product of products) {
         categories.add(product.category);
     }
+    return categories;
+}
 
-    // create card for each category
+// builds a category card for each category and adds it to the given grid
+function showCategories(products, categories, gridId) {
+    const template = document.querySelector("#categoryCardTemplate");
+    const grid = document.querySelector(gridId);
+
     for (const category of categories) {
-
-        // find a product in this category for its thumbnail
         const product = products.find(p => p.category === category);
-
         const card = template.content.cloneNode(true);
 
         const img = card.querySelector("img");
@@ -460,7 +462,6 @@ function showCategories(products) {
         card.querySelector(".category-name").textContent = category;
         card.querySelector("a").dataset.category = category;
 
-        parent.appendChild(card);
+        grid.appendChild(card);
     }
 }
-
