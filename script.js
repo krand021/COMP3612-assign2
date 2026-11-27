@@ -1,10 +1,10 @@
-import data from './data/data-minifed.json' with { type: 'json' };
-
+// changed to fetch
+// import data from './data/data-minifed.json' with { type: 'json' };
 
 const VIEWIDS = ["homeview", "categoryview", "browseview", "productview", "cartview"];
 const FEATURED_IDS = [99,80,95,42];
 const FEATURED_CATEGORIES = ['laptops','mens-watches','groceries','fragrances'];
-
+const WEBURL = 'https://dummyjson.com/products?limit=100';
 const SHIPPING_RATES = [
     { type: "standard", country: "canada", cost: 10 },
     { type: "express", country: "canada", cost: 25 },
@@ -19,27 +19,56 @@ const SHIPPING_RATES = [
 
 
 let cart = loadCart();
+let products = [];
 
 document.addEventListener('DOMContentLoaded', () =>{
     //start in home view
     viewChanger("homeview");
-    updateCartCount();
-    showFeaturedProducts(data.products);
+    
+    //this will call startSite which populates everthing, 'main' function
+    fetchInit();
 
     // using event delegation!
     document.querySelector("body").addEventListener("click", handleNavClick);
     document.querySelector("#productview").addEventListener("click", handleProductViewClick);
     document.querySelector("#cartview").addEventListener("click",handleCartViewClick);
     document.querySelector("#cartview").addEventListener("change",updateSummary);
-
-    // populate browser view
-    showCategories(data.products, getAllCategories(data.products), "#categoryGrid");
-    //popualte four browser views in home view
-    showCategories(data.products, FEATURED_CATEGORIES, "#featuredCategories");
-
 });
 
-// page-wide clicks nav links and product cards. cards appear in home and browse
+function startSite(data){
+    // fill the global products array with the data from localstorage
+    products = data.products;
+    updateCartCount();
+    showFeaturedProducts(products);
+    // populate cat view
+    showCategories(products, getAllCategories(products), "#categoryGrid");
+    //popualte four featured categories views in home view
+    showCategories(products, FEATURED_CATEGORIES, "#featuredCategories");
+
+}
+
+function fetchInit(){
+    // only run if statement is data is not saved in local storage, ie only fetch once
+    if( localStorage.getItem("data") === null){
+        fetch(WEBURL)
+        .then( response => response.json() )
+        .then( data => {
+                localStorage.setItem("data", JSON.stringify(data));
+                startSite(data);
+        })
+        .catch( error => {
+                console.error(error)   
+        });
+    }
+    // else, just start the site with the previously saved data
+    else{
+
+        startSite(JSON.parse(localStorage.getItem("data")));
+    }
+}
+
+
+// page-wide clicks nav links and product cards, cards appear in home and browse
 // Element.closest(): https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 function handleNavClick(e) {
     const clickedCard = e.target.closest(".product-card");
@@ -69,7 +98,6 @@ function handleClickedLink(link) {
     } else if(viewName ==="cartview"){
         showCart();
         viewChanger(viewName);
-
     }
     else {
         viewChanger(viewName);
@@ -135,7 +163,7 @@ function showCart(){
     else{
         for(const item of cart){
             
-            const product = data.products.find(product => product.id === item.id);
+            const product = products.find(product => product.id === item.id);
             const line = template.content.cloneNode(true);
 
             line.querySelector(".remove-btn").dataset.productId = product.id;
@@ -165,7 +193,7 @@ function updateSummary(){
     let total;
 
     for(const item of cart){
-        const product = data.products.find(product => product.id === item.id);
+        const product = products.find(product => product.id === item.id);
         merchTotal += (product.price *item.quantity);
     }
 
@@ -175,7 +203,6 @@ function updateSummary(){
     else{
         //call the shipping price based on the country and type of shipping
         shipping = SHIPPING_RATES.find(rate => rate.country === country && rate.type === shippingType).cost;
-        
         
     }
     if(country === 'canada'){
@@ -233,10 +260,10 @@ function handleAddToCart(clickedAddToCart) {
     saveCart();
 
     // look up the product so we can show its name in the toast
-    const product = data.products.find(product => product.id === productId);
+    const product = products.find(product => product.id === productId);
 
     // toast pattern from Lab 9b
-    showToast(`Added ${quantity} × ${product.title} to cart!`);
+    showToast(`Added ${quantity} x ${product.title} to cart!`);
 }
 
 
@@ -276,7 +303,7 @@ function saveCart() {
 // product card clicked, fill the single product view then show it
 function handleClickedCard(card) {
     const cardID = Number(card.dataset.productId);
-    const productClicked = data.products.find(product => product.id === cardID);
+    const productClicked = products.find(product => product.id === cardID);
     // fill
     showBreadcrumb(productClicked);
     showProductInfo(productClicked);
@@ -345,9 +372,6 @@ function showProductInfo(product) {
 }
 
 
-
-
-// tags as pills
 function showTags(product) {
     const tagsBox = document.querySelector("#tags");
     tagsBox.replaceChildren();
@@ -361,7 +385,6 @@ function showTags(product) {
 }
 
 
-
 // weight, dimensions, warranty, shipping, returns
 function showSpecs(product) {
     const dim = product.dimensions;
@@ -371,8 +394,6 @@ function showSpecs(product) {
     document.querySelector("#specShipping").textContent = product.shippingInformation;
     document.querySelector("#specReturns").textContent = product.returnPolicy;
 }
-
-
 
 
 // turns a rating like 3.6 into stars
@@ -391,8 +412,6 @@ function makeStars(rating) {
 
     return stars;
 }
-
-
 
 
 function showFeaturedProducts(products) {
@@ -440,6 +459,8 @@ function viewChanger(viewId) {
 
 
 function getAllCategories(products) {
+    // As advised from the asg specs
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
     const categories = new Set();
     for (const product of products) {
         categories.add(product.category);
